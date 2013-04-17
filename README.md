@@ -7,7 +7,7 @@ This is a guild website built for the TERA guild Lost Cause on Lake of Tears.  T
 
 ## Install
 ```sh
-  $ git clone git://github.com/madhums/nodejs-express-mongoose-demo.git
+  $ git clone https://github.com/jbcode3/lostcause.git
   $ npm install
   $ cp config/config.example.js config/config.js
   $ cp config/imager.example.js config/imager.js
@@ -30,7 +30,10 @@ Then visit [http://localhost:3000/](http://localhost:3000/)
   |__passport.js (auth config)
   |__express.js (express.js configs)
   |__middlewares/ (custom middlewares)
+-public/
+  |__fonts/
+  |__img/
+  |__js/
+  |__stylesheets/
 ```
 
-If you are looking for a specific feature, please use the issue tracker. I will try to come
-up with a demo as earliest as I can. Please feel free to fork and send updates :)
