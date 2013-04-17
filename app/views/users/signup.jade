@@ -1,0 +1,49 @@
+extends auth
+
+block auth
+  form.signup.form-horizontal(action="/users", method="post")
+    .control-group
+      label.control-label(for='name') Full name
+      .controls
+        input#name(type='text', name="name", placeholder='Full name', value=user.name)
+
+    .control-group
+      label.control-label(for='email') Email
+      .controls
+        input#email(type='text', name="email", placeholder='Email', value=user.email)
+
+    .control-group
+      label.control-label(for='username') Username
+      .controls
+        input#username(type='text', name="username", placeholder='Username', value=user.username)
+
+    .control-group
+      label.control-label(for='password') Password
+      .controls
+        input#password(type='password', name="password", placeholder='Password')
+
+    .control-group
+      label.control-label(for='charname') Character Name 
+        input#charname(type='text', name='charname', placeholder='Character Name')
+
+    .control-group
+      label.control-label(for='race') Race
+        select#race(name='race')
+          - for(var i = 0; i < req.game.races.length; i++) {
+              option(value=i)
+                =req.game.races[i]
+          - }
+
+    .control-group
+      label.control-label(for='role') Role
+        select#role(name='role')
+          - for(var i = 0; i < req.game.roles.length; i++) {
+              option(value=i)
+                =req.game.roles[i]
+          - }
+
+    .form-actions
+      button.btn.btn-primary(type='submit') Sign up
+      &nbsp;
+      | or&nbsp;
+      a.show-login(href="/login") login

@@ -1,0 +1,38 @@
+
+header#header
+  .header-bar
+    a(href='/') 
+      .guild-title
+        h1=req.game.guild
+        h2=req.game.server
+    ul.main-nav
+      li
+        a.brand(href='/') News
+      if(req.user)
+        if(req.game.ranks[req.user.userlevel].value > 50)  
+          li
+            a(href="/articles/new", title="new article") Create New Article
+        li
+          a(href="/logout", title="logout") logout
+      if(!req.user)
+        li 
+          a(href="/login", title="Login") Login
+    .user-menu
+      ul
+        if(req.isAuthenticated())
+          li.username
+            a(href="/users/"+req.user.id, title="Profile")=req.user.username
+          li 
+            p=req.user.characters['main'].name+' - '+req.game.races[req.user.characters['main'].race]+' '+req.game.roles[req.user.characters['main'].role]
+          li 
+            p=req.game.ranks[req.user.userlevel].title+' of '+req.game.guild
+          //li
+            a(href="/logout", title="logout") Logout
+        else
+          li
+            a(href="/login", title="Login") Login
+      .um-avatar
+        if(req.isAuthenticated())
+          a(href="/users/"+req.user.id, title='Profile')
+            img(src=req.user.avatar)
+    

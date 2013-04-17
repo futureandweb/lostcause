@@ -1,0 +1,39 @@
+extends ../layouts/default
+
+block main
+  h1= article.title
+
+block content
+  .article
+    .date
+      p=article.createdAt.toDateString()
+    if(req.user)
+      if(req.game.ranks[req.user.userlevel].value > 50)
+      .edit-control
+        form.center.form-inline.confirm(action="/articles/"+article.id, method="post")
+          a.flat-btn(href='/articles/'+article._id+'/edit', title="edit") Edit
+          &nbsp;&nbsp;
+          input(type="hidden", name="_method", value="DELETE")
+          button.flat-btn.btn-danger(type="submit") delete
+    p.title=article.title
+    p.body!=article.body
+    p.author
+      span Author :&nbsp;
+      a(href="/users/"+article.user._id)=article.user.name
+    if (article.tags)
+      .tags
+        | Tags :&nbsp;
+        each tag in article.tags.split(',')
+          a.tag(href="/tags/"+tag)
+            i.icon-tags
+            |  #{tag}
+    if (!article.isNew && article.image && article.image.files && article.image.files.length)
+      img(src=article.image.cdnUri + '/mini_' + article.image.files[0])
+
+  
+
+  .comments
+    h2.title Comments
+    each comment in article.comments
+      include ../comments/comment
+    include ../comments/form

@@ -1,0 +1,106 @@
+#header
+  width 1200px
+  margin 0px auto
+  border-left 1px solid #777
+  border-top 1px solid #777
+  -webkit-box-shadow: 5px 5px 10px -5px #000;
+  box-shadow: 5px 5px 10px -5px #000;
+
+  .header-bar
+    z-index 1000
+    position relative
+    height 80px
+    background-color #252525  
+    -webkit-box-shadow: 0px 15px 15px -15px #333;
+    box-shadow: 0px 15px 15px -15px #000;
+    a 
+      padding 0px
+  
+    .guild-title
+      margin 15px 0px 0px 15px
+      font-family Orbitron-Light
+      text-shadow #999 0px 1px 0px, #000 0 -1px 0
+      filter dropshadow(color=#333, offx=1, offy=1)
+      float left
+      background url(../img/lc-emblem-cutout-54.png) 0 0 no-repeat;
+      padding-left 70px
+      padding-top 10px
+      height 55px
+      h1
+        color #555
+        font-size 24px
+        line-height 24px
+        margin 0
+        letter-spacing 10px
+      h2
+        color #555
+        line-height 12px
+        font-size 12px
+        letter-spacing 12px
+        margin 0
+
+  .user-menu
+    float right
+    position absolute
+    right 0px
+    margin 10px
+    padding 2px 5px 2px 55px
+    height 56px
+    min-width 200px
+    background-color #444
+    box-shadow #aaa 0px 1px 0px, #333 0 -1px 0
+    text-align right
+    color text-col
+    background bg-overlay-url-half 90% 15% no-repeat
+    ul
+      list-style none
+      li 
+        height 14px
+    a 
+      font-family Orbitron-Medium
+      color link-col
+      font-size 12px
+      &:hover
+        color link-hover
+    p 
+      font-family Orbitron-Light
+      font-size 10px
+      color text-col
+      margin 0
+      position relative
+    .username
+      height 14px
+    .um-avatar
+      position absolute
+      top 3px
+      left 3px
+      img
+        height 50px
+        width 50px
+        border 2px solid white
+
+
+  .main-nav
+    z-index 999
+    float right
+    background-color rgba(.51,.51,.51,.5)
+    -webkit-box-shadow -4px 5px 11px 0px rgba(255,255,255,.25)
+    box-shadow -4px 5px 11px 0px rgba(255,255,255,.25)
+    font-family Orbitron-Light
+    list-style none
+    margin 0
+    position relative
+    top 80px
+    padding 10px 20px 5px 20px
+    li 
+      float left
+      padding-right 15px
+      &:after
+        content ""
+
+    a
+      color link-col
+      &:hover
+        color link-hover
+
+  

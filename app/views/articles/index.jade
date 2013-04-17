@@ -1,0 +1,29 @@
+extends ../layouts/default
+
+block content
+  each article in articles
+    .article
+      .date 
+        p=article.createdAt.toDateString()
+      a.title-link(href='/articles/'+article._id, title=article.title) #{article.title}
+      //- Cut off the body text of the message if longer than 1000 characters. 
+      //-  * Be careful when using HTML as these are counted as well.  Review submitted articles to ensure they
+      //-     look right.  This is just a quick method,  in future will parse out HTML characters
+      p.body!=article.body.substring(0,1000)+'...'
+      a.more(href='/articles/'+article._id, title=article.title) read more &gt;
+      //-.author
+        span &nbsp;| Author :&nbsp;
+        a(href="/users/")+article.user._id)=article.user.name
+        | &nbsp;|&nbsp;
+      if (article.tags)
+        span.tags
+          span.tags tags :&nbsp;
+          each tag in article.tags.split(',')
+            a.tag(href="/tags/"+tag)
+              i.icon-tags
+              |  #{tag}
+  
+  if (pages > 1)
+    .pagination
+      ul
+        != createPagination(pages, page)

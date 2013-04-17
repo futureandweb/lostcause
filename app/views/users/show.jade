@@ -1,0 +1,10 @@
+extends ../layouts/default
+
+block content
+  p UserName:  #{user.name}
+  br
+  p.title Main Character
+  p name: #{user.characters.main.name}
+  p race: #{req.game.races[user.characters.main.race]}
+  p class: #{req.game.roles[user.characters.main.role]}
+

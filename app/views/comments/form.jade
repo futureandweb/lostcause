@@ -1,0 +1,5 @@
+form.form-vertical.add-comment-form(method="post", action="/articles/#{article._id}/comments")
+  .control-group
+    .controls.add-comment-text
+      textarea#comment.input-xxlarge(type='text', rows="6", name="body", placeholder='Add your comment')
+  button.flat-btn.btn-primary.add-comment-btn(type='submit') Add comment

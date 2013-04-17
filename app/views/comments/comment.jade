@@ -1,0 +1,13 @@
+if (comment && comment.user)
+  .comment
+    table 
+      tr 
+        td.comment-user 
+          a(href="/users/"+comment.user._id)
+            img.avatar(src="#{comment.user.avatar}")
+          p
+            a(href="/users/"+comment.user._id) #{comment.user.name}
+          p=comment.user.characters.main.name
+        td.comment-body
+          p.date=comment.createdAt.toLocaleString();
+          p=comment.body

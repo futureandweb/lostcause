@@ -1,0 +1,51 @@
+#slider
+  border-left 1px solid #777
+  width 1200px
+  height 250px
+
+  ul
+    list-style none
+    margin 0
+  .flex-viewport
+    z-index -1
+    width 1200px
+    height 250px
+    //position relative
+    //top -28px
+  .flex-control-nav
+    bottom 50px
+    left 0px
+    position relative
+    li 
+      margin 0
+      display block
+      float left
+      a
+        font-family Orbitron-Light
+        color link-col
+        text-indent 0px
+        border-radius 0px
+        padding 7px
+        &:hover
+          color link-hover
+    .flex-active
+      background-color rgba(0,42,255,.5)
+  .flex-caption
+    position relative
+    bottom 35px
+    height 50px
+    color text-col
+    font-family Orbitron-Light
+    background-color rgba(0,0,0,.5)
+    padding 7px 15px 0px 20px
+    font-size 16px
+
+  .flex-prev,.flex-next
+    position relative
+    opacity 1
+  .flex-prev
+    bottom 125px
+    left 5px
+  .flex-next
+    bottom 135px
+    left 1165px

@@ -1,0 +1,9 @@
+#progression-sidebar
+  .sb-title progression
+  .sb-content
+    - for(var i = 0; i < req.game.progression.length; i++) {
+    .location-wrapper
+      .location(class='pg-loc-#{req.game.progression[i].id}')
+      .location(class='pg-status-#{req.game.progression[i].status}')
+      p=req.game.progression[i].name
+    - }
