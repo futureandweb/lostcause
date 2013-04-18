@@ -59,7 +59,7 @@ module.exports = function (app, passport, auth, roles) {
   app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login', scope: 'https://www.google.com/m8/feeds' }), users.authCallback)
 
   app.param('userId', users.user)
-  app.post('/avatar/upload', roles.is('logged in'), users.uploadAvatar);
+  app.post('/avatar/upload', auth.requiresLogin, users.uploadAvatar);
 
   // article routes
   var articles = require('../app/controllers/articles')
