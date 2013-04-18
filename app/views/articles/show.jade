@@ -4,7 +4,7 @@ block main
   h1= article.title
 
 block content
-  .article
+  //.article
     .date
       p=article.createdAt.toDateString()
     if(req.user.isAuthenticated)

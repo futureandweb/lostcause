@@ -8,7 +8,7 @@ var mongoose = require('mongoose')
   , async = require('async')
   , Article = mongoose.model('Article')
   , _ = require('underscore')
-  , bbcode = require('bbcode')
+  //, bbcode = require('bbcode')
 
 /**
  * Find article by id
@@ -128,8 +128,7 @@ exports.index = function(req, res){
   }
 
   Article.list(options, function(err, articles) {
-    console.log(articles);
-    console.log(req.user);
+    console.log(articles)
     if (err) return res.render('500')
     Article.count().exec(function (err, count) {
       res.render('articles/index', {
