@@ -100,7 +100,7 @@ exports.uploadAvatar = function(req, res){
       console.log(target_path);
       User.update({_id:req.user._id},{$set:{avatar:target_path}}).exec();
       req.errors = err;
-      res.redirect('/users/'+req.user.id);
+      //res.send('/users/'+req.user.id);
     });
   });
 }
