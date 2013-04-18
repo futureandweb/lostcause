@@ -50,7 +50,7 @@ module.exports = function (app, config, passport, roles) {
 
     // bodyParser should be above methodOverride
     app.use(express.bodyParser({
-       uploadDir: config.root+'/public/tmp'
+       uploadDir: config.root+'/tmp'
     }))
     app.use(express.methodOverride())
 
