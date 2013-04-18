@@ -33,5 +33,7 @@
     , "async": "latest"
     , "nodemon": "latest"
     , "view-helpers": "latest"
+    , "connect-roles": "latest"
+    , "node-uuid": "latest"
   }
 }

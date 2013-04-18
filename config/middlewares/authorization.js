@@ -15,7 +15,7 @@ exports.requiresLogin = function (req, res, next) {
  */
 exports.requiresAdmin = function(req, res, next) {
   console.log(req.user);
-  if(req.game.ranks[req.user.userlevel].value < 50){
+  if(req.user.role == 'admin'){
     return res.redirect('/articles');
 
   }

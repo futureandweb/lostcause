@@ -5,6 +5,8 @@
 
 var mongoose = require('mongoose')
   , User = mongoose.model('User')
+  , uuid = require('node-uuid')
+  , fs = require('fs')
 
 exports.signin = function (req, res) {}
 
@@ -74,6 +76,33 @@ exports.create = function (req, res) {
       return res.redirect('/')
     })
   })
+}
+
+/**
+ * Upload avatar image
+ */
+exports.uploadAvatar = function(req, res){
+  var tmp_path = req.files.avatar.path;
+  console.log(req.files.avatar);
+  var target_path = '/img/upload/'+uuid.v1()+'-'+req.files.avatar.name;
+  fs.rename(tmp_path, '.'+target_path,  function(err){
+    if(err){
+      console.log(err);
+      //return res.redirect('/users/'+req.user.id, {errors:err});
+    }
+    fs.unlink(tmp_path, function(err){
+      if(err){
+        console.log(err);
+       //return res.redirect('/users/'+req.user.id, {errors:err});
+      }
+      // save image into db
+      
+      console.log(target_path);
+      User.update({_id:req.user._id},{$set:{avatar:target_path}}).exec();
+      req.errors = err;
+      res.redirect('/users/'+req.user.id);
+    });
+  });
 }
 
 /**

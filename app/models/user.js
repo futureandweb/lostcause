@@ -21,10 +21,23 @@ var UserSchema = new Schema({
   hashed_password: String,
   salt: String,
   userlevel: {type:Number, default:0},
+  role: {type:String, default:'member'},
+  userProfile:{
+    gender: String,
+    location: String,
+    country: String,
+    interests: String,
+    profile: String
+  },
+  metrics:{
+    profileViews: Number,
+    blogPosts: Number,
+    forumPosts: Number
+  },
   enabled: {type:Boolean,default:true},
   avatar: {type:String,default:'http://localhost:3000/img/avatar.jpg'},
   characters: {
-    'main':{
+    main:{
       name: String,
       race: Number,
       role: Number

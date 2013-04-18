@@ -8,6 +8,7 @@ var mongoose = require('mongoose')
   , async = require('async')
   , Article = mongoose.model('Article')
   , _ = require('underscore')
+  , bbcode = require('bbcode')
 
 /**
  * Find article by id
@@ -75,6 +76,7 @@ exports.edit = function (req, res) {
 exports.update = function(req, res){
   var article = req.article
   article = _.extend(article, req.body)
+  //article.body = bbcode.parse(article.body.replace(/<(?:.|\n)*?>/gm, ''))
 
   article.uploadAndSave(req.files.image, function(err) {
     if (err) {
@@ -127,6 +129,7 @@ exports.index = function(req, res){
 
   Article.list(options, function(err, articles) {
     console.log(articles);
+    console.log(req.user);
     if (err) return res.render('500')
     Article.count().exec(function (err, count) {
       res.render('articles/index', {

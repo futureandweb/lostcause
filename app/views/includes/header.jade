@@ -8,8 +8,8 @@ header#header
     ul.main-nav
       li
         a.brand(href='/') News
-      if(req.user)
-        if(req.game.ranks[req.user.userlevel].value > 50)  
+      if(req.user.isAuthenticated)
+        if(req.user.role === 'moderator' || req.user.role === 'admin')  
           li
             a(href="/articles/new", title="new article") Create New Article
         li
@@ -19,7 +19,7 @@ header#header
           a(href="/login", title="Login") Login
     .user-menu
       ul
-        if(req.isAuthenticated())
+        if(req.user.isAuthenticated)
           li.username
             a(href="/users/"+req.user.id, title="Profile")=req.user.username
           li 
@@ -32,7 +32,7 @@ header#header
           li
             a(href="/login", title="Login") Login
       .um-avatar
-        if(req.isAuthenticated())
+        if(req.user.isAuthenticated)
           a(href="/users/"+req.user.id, title='Profile')
             img(src=req.user.avatar)
     

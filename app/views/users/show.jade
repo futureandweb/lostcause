@@ -1,6 +1,12 @@
 extends ../layouts/default
 
 block content
+  if (typeof req.errors !== 'undefined')
+    .fade.in.alert.alert-block.alert-error
+      a.close(data-dismiss="alert", href="javascript:void(0)") x
+      ul
+        each error in req.errors
+          li= error.type
   p UserName:  #{user.name}
   br
   p.title Main Character
@@ -8,3 +14,9 @@ block content
   p race: #{req.game.races[user.characters.main.race]}
   p class: #{req.game.roles[user.characters.main.role]}
 
+  form(action='/avatar/upload',method='post', enctype='multipart/form-data')
+    input(type='file',name='avatar')
+    button.flat-btn(type='submit') Upload Now
+
+  p=user
+  p=req.user

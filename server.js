@@ -1,6 +1,8 @@
 var express = require('express')
   , fs = require('fs')
   , passport = require('passport')
+  , roles = require('connect-roles');
+
 
 // Load configurations
 var env = process.env.NODE_ENV || 'development'
@@ -22,10 +24,10 @@ require('./config/passport')(passport, config)
 
 var app = express()
 // express settings
-require('./config/express')(app, config, passport)
+require('./config/express')(app, config, passport, roles)
 
 // Bootstrap routes
-require('./config/routes')(app, passport, auth)
+require('./config/routes')(app, passport, auth, roles)
 
 // Start the app by listening on <port>
 var port = process.env.PORT || config.port

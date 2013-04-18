@@ -12,7 +12,7 @@ var express = require('express')
   , bootstrap = require('bootstrap-stylus')
   , game = require('./game-config')
 
-module.exports = function (app, config, passport) {
+module.exports = function (app, config, passport, roles) {
 
   app.configure(function () {
     app.set('showStackError', true)
@@ -49,7 +49,9 @@ module.exports = function (app, config, passport) {
     app.use(express.cookieParser())
 
     // bodyParser should be above methodOverride
-    app.use(express.bodyParser())
+    app.use(express.bodyParser({
+       uploadDir: config.root+'/public/tmp'
+    }))
     app.use(express.methodOverride())
 
     // express/mongo session storage
@@ -67,6 +69,9 @@ module.exports = function (app, config, passport) {
     // use passport session
     app.use(passport.initialize())
     app.use(passport.session())
+
+    // use connect-roles
+    app.use(roles);
 
     // insert game info
     app.use(function(req,res,next){

@@ -4,7 +4,42 @@ var mongoose = require('mongoose')
   , User = mongoose.model('User')
   , async = require('async')
 
-module.exports = function (app, passport, auth) {
+module.exports = function (app, passport, auth, roles) {
+
+  // Role Strategies
+  // Anonymous users can access 'anon access'
+  app.use(function(req,action){
+    if(!req.user.isAuthenticated) return action === 'anon access';
+  });
+  // requires logged in to access
+  app.use('logged in', function(req){
+    if(req.user.isAuthenticated){
+      return true;
+    }
+  });
+  // Moderators or higher can access these pages
+  app.use('moderator', function(req){
+    if(req.user.role === 'moderator'){
+      return true;
+    }
+  });
+  // Admin can access all pages
+  roles.use(function(req){
+    if(req.user.role === 'admin'){
+      return true;
+    }
+  });
+
+  // Set the Access denied page
+  roles.setFailureHandler(function(req,res,action){
+    var accept = req.headers.accept || '';
+    res.status(403);
+    if(~accept.indexOf('html')){
+      res.render('users/login',{message:'You do not have sufficient permssion to perform this action.'});
+    } else {
+      res.send('Access Denied - You don\'t have permission to: '+action);
+    }
+  });
 
   // user routes
   var users = require('../app/controllers/users')
@@ -24,16 +59,17 @@ module.exports = function (app, passport, auth) {
   app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login', scope: 'https://www.google.com/m8/feeds' }), users.authCallback)
 
   app.param('userId', users.user)
+  app.post('/avatar/upload', roles.is('logged in'), users.uploadAvatar);
 
   // article routes
   var articles = require('../app/controllers/articles')
   app.get('/articles', articles.index)
-  app.get('/articles/new', auth.requiresAdmin, articles.new)
-  app.post('/articles', auth.requiresLogin, articles.create)
+  app.get('/articles/new', roles.is('moderator'), articles.new)
+  app.post('/articles', roles.is('moderator'), articles.create)
   app.get('/articles/:id', articles.show)
-  app.get('/articles/:id/edit', auth.requiresLogin, auth.article.hasAuthorization, articles.edit)
-  app.put('/articles/:id', auth.requiresLogin, auth.article.hasAuthorization, articles.update)
-  app.del('/articles/:id', auth.requiresLogin, auth.article.hasAuthorization, articles.destroy)
+  app.get('/articles/:id/edit', roles.is('moderator'), auth.article.hasAuthorization, articles.edit)
+  app.put('/articles/:id', roles.is('moderator'), auth.article.hasAuthorization, articles.update)
+  app.del('/articles/:id', roles.is('moderator'), auth.article.hasAuthorization, articles.destroy)
 
   app.param('id', articles.article)
 

@@ -7,14 +7,14 @@ block content
   .article
     .date
       p=article.createdAt.toDateString()
-    if(req.user)
-      if(req.game.ranks[req.user.userlevel].value > 50)
-      .edit-control
-        form.center.form-inline.confirm(action="/articles/"+article.id, method="post")
-          a.flat-btn(href='/articles/'+article._id+'/edit', title="edit") Edit
-          &nbsp;&nbsp;
-          input(type="hidden", name="_method", value="DELETE")
-          button.flat-btn.btn-danger(type="submit") delete
+    if(req.user.isAuthenticated)
+      if(req.user.role === 'moderator' || req.user.role === 'admin')
+        .edit-control
+          form.center.form-inline.confirm(action="/articles/"+article.id, method="post")
+            a.flat-btn(href='/articles/'+article._id+'/edit', title="edit") Edit
+            &nbsp;&nbsp;
+            input(type="hidden", name="_method", value="DELETE")
+            button.flat-btn.btn-danger(type="submit") delete
     p.title=article.title
     p.body!=article.body
     p.author
