@@ -16,5 +16,6 @@ npm-debug.log
 node_modules/
 .monitor
 Makefile
+public/tmp/*
 
 .DS_Store
