@@ -83,26 +83,31 @@ exports.create = function (req, res) {
  */
 exports.uploadAvatar = function(req, res){
   var tmp_path = req.files.avatar.path;
-  console.log(req.files.avatar);
-  var target_path = '/img/upload/'+uuid.v1()+'-'+req.files.avatar.name;
-  fs.rename(tmp_path, '.'+target_path,  function(err){
-    if(err){
-      console.log(err);
-      //return res.redirect('/users/'+req.user.id, {errors:err});
-    }
-    fs.unlink(tmp_path, function(err){
+  var target_path = '/img/avatar-upload/'+uuid.v1()+'-'+req.files.avatar.name;
+  var type = req.files.avatar.type.split('/')[1];
+  if(type === 'jpeg' || type === 'png' || type === 'gif'){
+    fs.rename(tmp_path, './public'+target_path,  function(err){
       if(err){
         console.log(err);
-       //return res.redirect('/users/'+req.user.id, {errors:err});
       }
-      // save image into db
-      
-      console.log(target_path);
-      User.update({_id:req.user._id},{$set:{avatar:target_path}}).exec();
-      req.errors = err;
-      //res.send('/users/'+req.user.id);
+      fs.unlink(tmp_path, function(err){
+        if(err){
+          console.log(err);
+        }
+        // save image into db
+        User.update({_id:req.user._id},{$set:{avatar:target_path}}).exec();
+        res.redirect('/users/'+req.user.id);
+      });
     });
-  });
+  } else {
+      req.errors = 'You may only upload a JPG / PNG / Gif';
+      fs.unlink(tmp_path, function(err){
+        if(err){
+          console.log(err);
+        }
+      });
+      res.redirect('/users/'+req.user.id);
+  }
 }
 
 /**

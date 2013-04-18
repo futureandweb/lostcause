@@ -512,7 +512,7 @@ button.btn::-moz-focus-inner,input[type=submit].btn::-moz-focus-inner{padding:0;
 #recruitment-widget{position:relative;text-align:center;height:80px;background:url("../img/elin-logo-thirdsize.png") 90% 15% no-repeat;}
 #recruitment-widget .row2{position:absolute;top:100px}
 #recruitment-widget ul{list-style:none;margin:10px 10px;}
-#recruitment-widget ul li{float:left;margin:0 7px;}
+#recruitment-widget ul li{float:left;margin:0 6px;}
 #recruitment-widget ul li p{font-size:7px;font-family:Orbitron-Light;letter-spacing:1px;text-transform:uppercase}
 #recruitment-widget .recruitment-open{color:#24ff00}
 #recruitment-widget .recruitment-closed{color:#f00;font-size:4.5px}
